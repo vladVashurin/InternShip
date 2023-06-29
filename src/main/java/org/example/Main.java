@@ -18,10 +18,23 @@ public class Main {
             cityList.add(new City(console.nextLine()));
         }
         console.close();
-        cityList = sortRegionNameASC(cityList);
-        cityList.forEach(System.out::println);
+        findBiggestPopulation(cityList);
+
     }
 
+    private static void findBiggestPopulation(List<City>cities){
+        Integer[]array = new Integer[cities.size()];
+        int max = Integer.MIN_VALUE;
+        int maxIndex = -1;
+        for(int i = 0; i < cities.size(); i++){
+            array[i]=cities.get(i).getPopulation();
+            if(array[i]>max){
+                max = array[i];
+                maxIndex = i;
+            }
+        }
+        System.out.println("[" + maxIndex + "] = " + max);
+    }
     private static List<City> sortNameASC(List<City> cityList) {
         cityList.sort(new Comparator<City>() {
             @Override
