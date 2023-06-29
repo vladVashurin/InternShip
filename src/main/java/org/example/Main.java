@@ -4,10 +4,7 @@ import org.example.model.City;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -18,8 +15,21 @@ public class Main {
             cityList.add(new City(console.nextLine()));
         }
         console.close();
-        findBiggestPopulation(cityList);
+        HashMap<String, Integer>map = findRegionCitiesCount(cityList);
+        for (Map.Entry entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " - "
+                    + entry.getValue());
+        }
+    }
 
+    private static HashMap<String, Integer> findRegionCitiesCount(List<City>cities){
+        HashMap<String, Integer>map = new HashMap<>();
+        for(City c : cities){
+            if(map.containsKey(c.getRegion())) {
+                map.put(c.getRegion(), map.get(c.getRegion()) + 1);
+            }else map.put(c.getRegion(),1);
+        }
+        return map;
     }
 
     private static void findBiggestPopulation(List<City>cities){
